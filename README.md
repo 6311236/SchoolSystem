@@ -4,4 +4,4 @@
 
 This is a project for the final project of Introduction to Programming
 
-This project mimics a school system that allows a student to register and add a course and allow the teacher to grade and add the scores of a course.
+This project simulates a course management system where students can register for courses and drop them, while the system automatically generates and calculates assignment scores and final grades
