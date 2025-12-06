@@ -16,6 +16,10 @@ public class Address {
     private Province province;
     private String postalCode;
 
+    public enum Province {
+        AB, QC, ON, BC, MB, NB, NL, NS, PE
+    }
+
     public static boolean isPostalCodeValid(String postalCode) {
         if (postalCode == null || postalCode.length() != 6) {
             return false;
