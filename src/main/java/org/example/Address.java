@@ -42,7 +42,7 @@ public class Address {
     }
 
     /**
-     *
+     * Makes an address with all the fields
      * @param streetNo the street number
      * @param street the street name
      * @param city the city name
@@ -62,6 +62,19 @@ public class Address {
             this.street = null;
             this.city = null;
             this.province = null;
+            this.postalCode = null;
+        }
+    }
+
+    /**
+     * Sets the postal code after validating it
+     * @param postalCode the postal code to set
+     */
+    public void setPostalCode(String postalCode) {
+        if (isPostalCodeValid(postalCode)) {
+            this.postalCode = postalCode.toUpperCase();
+        }
+        else {
             this.postalCode = null;
         }
     }
