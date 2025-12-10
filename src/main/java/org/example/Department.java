@@ -2,15 +2,14 @@ package org.example;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
 @Getter
 public class Department {
-    private String departmentId;
-    @Setter private String departmentName;
+    private final String departmentId;
+    private String departmentName;
     private static int nextId = 1;
 
     /**
@@ -18,7 +17,7 @@ public class Department {
      * @param departmentName the department name to check
      * @return true if the department name has only letters or spaces and if not false
      */
-    public static boolean isDepartmentValid(String departmentName) {
+    public static boolean isDepartmentNameValid(String departmentName) {
         if (departmentName == null || departmentName.isEmpty()) {
             return false;
         }
@@ -33,10 +32,31 @@ public class Department {
         return true;
     }
 
+    /**
+     * creates a department with the name given
+     * @param departmentName the department name
+     */
     public Department(String departmentName) {
-        if (isDepartmentValid(departmentName)) {
+        if (isDepartmentNameValid(departmentName)) {
             this.departmentId = String.format("D%02d", nextId++);
-            this.departmentName =
+            this.departmentName = Util.toTitleCase(departmentName);
+        }
+        else {
+            this.departmentId = null;
+            this.departmentName = null;
+        }
+    }
+
+    /**
+     * Sets the department name after validating it
+     * @param departmentName the department name to set
+     */
+    public void setDepartmentName(String departmentName) {
+        if (isDepartmentNameValid(departmentName)) {
+            this.departmentName = Util.toTitleCase(departmentName);
+        }
+        else {
+            this.departmentName = null;
         }
     }
 }
