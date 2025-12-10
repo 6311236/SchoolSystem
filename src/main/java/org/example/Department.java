@@ -32,4 +32,11 @@ public class Department {
 
         return true;
     }
+
+    public Department(String departmentName) {
+        if (isDepartmentValid(departmentName)) {
+            this.departmentId = String.format("D%02d", nextId++);
+            this.departmentName =
+        }
+    }
 }
