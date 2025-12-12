@@ -37,4 +37,20 @@ public class Student {
         this.department = department;
         this.registeredCourses = new ArrayList<>();
     }
+
+    /**
+     *  converts a student to a simple string with only the studentId, the studentName and the departmentName
+     * @return the simplified string student
+     */
+    public String toSimplifiedString() {
+        return studentId + " " + studentName + " (" + department.getDepartmentName() + ")";
+    }
+
+    /**
+     * sets the student name and then converts it to title case
+     * @param studentName the student name to set
+     */
+    public void setStudentName(String studentName) {
+        this.studentName = Util.toTitleCase(studentName);
+    }
 }
