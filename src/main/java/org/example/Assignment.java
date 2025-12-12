@@ -68,4 +68,13 @@ public class Assignment {
             scores.set(i, score);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Assignment{" +
+                "assignmentId='" + assignmentId + '\'' +
+                ", assignmentName='" + assignmentName + '\'' +
+                ", weight=" + weight +
+                '}';
+    }
 }
