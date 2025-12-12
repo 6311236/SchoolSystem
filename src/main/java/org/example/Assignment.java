@@ -3,6 +3,7 @@ package org.example;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 @Getter
 public class Assignment {
@@ -36,5 +37,35 @@ public class Assignment {
         }
 
         return (double) sum / count;
+    }
+
+    /**
+     * method that generates random scores for all of the students in the assignment
+     */
+    public void generateRandomScore() {
+        Random random = new Random();
+
+        for (int i = 0; i < scores.size(); i++) {
+            int category = random.nextInt(11);
+            int score;
+
+            if (category == 0) {
+                score = random.nextInt(60);
+            }
+            else if (category >= 1 && category <= 2) {
+                score = random.nextInt(10) + 60;
+            }
+            else if (category >= 3 && category <= 4) {
+                score = random.nextInt(10) + 70;
+            }
+            else if (category >= 5 && category <= 8) {
+                score = random.nextInt(10) + 80;
+            }
+            else {
+                score = random.nextInt(11) + 90;
+            }
+
+            scores.set(i, score);
+        }
     }
 }
