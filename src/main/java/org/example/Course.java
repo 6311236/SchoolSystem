@@ -17,6 +17,7 @@ public class Course {
     private Department department;
     private ArrayList<Assignment> assignments;
     private ArrayList<Student> registeredStudents;
+    private ArrayList<Integer> finalScores;
     private static int nextId = 1;
 
     /**
@@ -36,6 +37,7 @@ public class Course {
         this.department = department;
         this.assignments = new ArrayList<>();
         this.registeredStudents = new ArrayList<>();
+        this.finalScores = new ArrayList<>();
     }
 
     /**
@@ -67,6 +69,8 @@ public class Course {
         for (Assignment assignment : assignments) {
             assignment.getScores().add(null);
         }
+
+        finalScores.add(null);
 
         return true;
     }
@@ -123,6 +127,19 @@ public class Course {
         for (Assignment assignment : assignments) {
             assignment.generateRandomScore();
         }
+
+        for (int i = 0; i < registeredStudents.size(); i++) {
+            double weightedSum = 0.0;
+
+            for (Assignment assignment : assignments) {
+                Integer score = assignment.getScores().get(i);
+                if (score != null) {
+                    weightedSum += score * assignment.getWeight() / 100.0;
+                }
+            }
+
+            finalScores.set(i, (int) Math.round(weightedSum));
+        }
     }
 
     /**
@@ -150,8 +167,6 @@ public class Course {
         System.out.printf("%20s", "Final Score");
         System.out.println();
 
-        int[] studentAverages = calcStudentsAverage();
-
         for (int i = 0; i < registeredStudents.size(); i++) {
             Student student = registeredStudents.get(i);
             System.out.printf("%" + maxNameLength + "s", student.getStudentName());
@@ -165,7 +180,12 @@ public class Course {
                 }
             }
 
-            System.out.printf("%20d", studentAverages[i]);
+            Integer finalScore = finalScores.get(i);
+            if (finalScore != null) {
+                System.out.printf("%20d", finalScore);
+            } else {
+                System.out.printf("%20s", "N/A");
+            }
             System.out.println();
         }
 

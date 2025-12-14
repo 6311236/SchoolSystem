@@ -77,6 +77,8 @@ public class Student {
             assignment.getScores().remove(index);
         }
 
+        course.getFinalScores().remove(index);
+
         return true;
     }
 
@@ -88,11 +90,27 @@ public class Student {
         return studentId + " " + studentName + " (" + department.getDepartmentName() + ")";
     }
 
-    /**
-     * sets the student name and then converts it to title case
-     * @param studentName the student name to set
-     */
-    public void setStudentName(String studentName) {
-        this.studentName = Util.toTitleCase(studentName);
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("Student{");
+        result.append("studentId='").append(studentId).append('\'');
+        result.append(", studentName='").append(studentName).append('\'');
+        result.append(", gender=").append(gender);
+        result.append(", address=").append(address);
+        result.append(", department=").append(department);
+        result.append(", registeredCourses=[");
+
+        for (int i = 0; i < registeredCourses.size(); i++) {
+            Course course = registeredCourses.get(i);
+            result.append(course.getCourseId()).append(" ").append(course.getCourseName())
+                    .append(" (").append(course.getDepartment().getDepartmentName()).append(")");
+            if (i < registeredCourses.size() - 1) {
+                result.append(", ");
+            }
+        }
+
+        result.append("]}");
+        return result.toString();
     }
 }
