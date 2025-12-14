@@ -40,6 +40,47 @@ public class Student {
     }
 
     /**
+     * registers a course for a student
+     * @param course that will be registered
+     * @return true if the student succesfully registered and false otherwise
+     */
+    public boolean registerCourse(Course course) {
+        if (registeredCourses.contains(course)) {
+            return false;
+        }
+
+        registeredCourses.add(course);
+        course.getRegisteredStudents().add(this);
+
+        for (Assignment assignment : course.getAssignments()) {
+            assignment.getScores().add(null);
+        }
+
+        return true;
+    }
+
+    /**
+     * drops the course for a student
+     * @param course that will be dropped
+     * @return true if the srudent succesfully dropped the course and false otherwise
+     */
+    public boolean dropCourse(Course course) {
+        if (!registeredCourses.contains(course)) {
+            return false;
+        }
+
+        int index = course.getRegisteredStudents().indexOf(this);
+        registeredCourses.remove(course);
+        course.getRegisteredStudents().remove(this);
+
+        for (Assignment assignment : course.getAssignments()) {
+            assignment.getScores().remove(index);
+        }
+
+        return true;
+    }
+
+    /**
      *  converts a student to a simple string with only the studentId, the studentName and the departmentName
      * @return the simplified string student
      */
