@@ -13,6 +13,13 @@ public class Assignment {
     private ArrayList<Integer> scores;
     private static int nextId = 1;
 
+    public Assignment(String assignmentName, double weight) {
+        this.assignmentId = String.format("A%06d", nextId++);
+        this.assignmentName = assignmentName;
+        this.weight = weight;
+        this.scores = new ArrayList<>();
+    }
+
     /**
      * calculates the average for the given assignment
      * @return the average scire of the assignment or 0 if there are no scores
