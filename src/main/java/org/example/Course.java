@@ -73,7 +73,7 @@ public class Course {
 
     /**
      * calculates the average for every student with the proper weights
-     * @return
+     * @return array of the average score for every student with the proper weights
      */
     public int[] calcStudentsAverage() {
         if (registeredStudents.isEmpty()) {
@@ -114,5 +114,100 @@ public class Course {
         }
 
         return true;
+    }
+
+    /**
+     * generates a random score for every assignment and student
+     */
+    public void generateScores() {
+        for (Assignment assignment : assignments) {
+            assignment.generateRandomScore();
+        }
+    }
+
+    /**
+     * displays all the scores of the course in a table
+     */
+    public void displayScores() {
+        System.out.println("Course: " + courseName + " (" + courseId + ")");
+
+        if (assignments.isEmpty() || registeredStudents.isEmpty()) {
+            return;
+        }
+
+        int maxNameLength = 20;
+        for (Student student : registeredStudents) {
+            int nameLength = student.getStudentName().length();
+            if (nameLength > maxNameLength) {
+                maxNameLength = nameLength;
+            }
+        }
+
+        System.out.printf("%" + maxNameLength + "s", "");
+        for (Assignment assignment : assignments) {
+            System.out.printf("%20s", assignment.getAssignmentName());
+        }
+        System.out.printf("%20s", "Final Score");
+        System.out.println();
+
+        int[] studentAverages = calcStudentsAverage();
+
+        for (int i = 0; i < registeredStudents.size(); i++) {
+            Student student = registeredStudents.get(i);
+            System.out.printf("%" + maxNameLength + "s", student.getStudentName());
+
+            for (Assignment assignment : assignments) {
+                Integer score = assignment.getScores().get(i);
+                if (score != null) {
+                    System.out.printf("%20d", score);
+                } else {
+                    System.out.printf("%20s", "N/A");
+                }
+            }
+
+            System.out.printf("%20d", studentAverages[i]);
+            System.out.println();
+        }
+
+        System.out.printf("%" + maxNameLength + "s", "Average");
+        for (Assignment assignment : assignments) {
+            double avg = assignment.calcAssignmentAvg();
+            System.out.printf("%20.0f", avg);
+        }
+        System.out.println();
+    }
+
+    /**
+     * converts a course to a simple string with only the courseId, courseName, credits and departmentName
+     * @return the simplifed string version of the course
+     */
+    public String toSimplifiedString() {
+        return courseId + " " + courseName + " (" + credits + " credits, " + department.getDepartmentName() + ")";
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("Course{");
+        result.append("courseId='").append(courseId).append('\'');
+        result.append(", courseName='").append(courseName).append('\'');
+        result.append(", credits=").append(credits);
+        result.append(", departmentName='").append(department.getDepartmentName()).append('\'');
+        result.append(", assignments=").append(assignments);
+        result.append(", registeredStudents=[");
+
+        for (int i = 0; i < registeredStudents.size(); i++) {
+            Student student = registeredStudents.get(i);
+            result.append(student.getStudentId()).append(" ").append(student.getStudentName())
+                    .append(" (").append(student.getDepartment().getDepartmentName()).append(")");
+            if (i < registeredStudents.size() - 1) {
+                result.append(", ");
+            }
+        }
+
+        result.append("]");
+        result.append("\nisAssignmentWeightValid=").append(isAssignmentWeightValid());
+        result.append("}");
+        return result.toString();
     }
 }

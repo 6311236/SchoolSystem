@@ -13,6 +13,11 @@ public class Assignment {
     private ArrayList<Integer> scores;
     private static int nextId = 1;
 
+    /**
+     * makes an assignment with assignment name and the weight
+     * @param assignmentName the name of the assignment
+     * @param weight the weight of the assignment
+     */
     public Assignment(String assignmentName, double weight) {
         this.assignmentId = String.format("A%06d", nextId++);
         this.assignmentName = assignmentName;
