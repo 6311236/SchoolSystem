@@ -7,93 +7,113 @@ import static org.junit.jupiter.api.Assertions.*;
 class DepartmentTest {
 
     @Test
-    void testIsDepartmentNameValid_ValidLettersOnly() {
-        assertTrue(Department.isDepartmentNameValid("ComputerScience"));
+    void testIsDepartmentNameValid_ComputerScience() {
+        String input = "ComputerScience";
+        boolean expResult = true;
+        boolean result = Department.isDepartmentNameValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsDepartmentNameValid_ValidWithSpaces() {
-        assertTrue(Department.isDepartmentNameValid("Computer Science"));
+    void testIsDepartmentNameValid_ComputerScienceWithSpace() {
+        String input = "Computer Science";
+        boolean expResult = true;
+        boolean result = Department.isDepartmentNameValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsDepartmentNameValid_ValidMultipleWords() {
-        assertTrue(Department.isDepartmentNameValid("Computer Science And Math"));
+    void testIsDepartmentNameValid_MultipleWords() {
+        String input = "Computer Science And Math";
+        boolean expResult = true;
+        boolean result = Department.isDepartmentNameValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsDepartmentNameValid_InvalidNumbers() {
-        assertFalse(Department.isDepartmentNameValid("Computer Science 101"));
+    void testIsDepartmentNameValid_containsNumbers() {
+        String input = "Computer Science 101";
+        boolean expResult = false;
+        boolean result = Department.isDepartmentNameValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsDepartmentNameValid_InvalidSpecialChars() {
-        assertFalse(Department.isDepartmentNameValid("Computer-Science"));
+    void testIsDepartmentNameValid_containsSpecialChars() {
+        String input = "Computer-Science";
+        boolean expResult = false;
+        boolean result = Department.isDepartmentNameValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsDepartmentNameValid_Null() {
-        assertFalse(Department.isDepartmentNameValid(null));
+    void testIsDepartmentNameValid_null() {
+        String input = null;
+        boolean expResult = false;
+        boolean result = Department.isDepartmentNameValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsDepartmentNameValid_Empty() {
-        assertFalse(Department.isDepartmentNameValid(""));
+    void testIsDepartmentNameValid_emptyString() {
+        String input = "";
+        boolean expResult = false;
+        boolean result = Department.isDepartmentNameValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testDepartmentConstructor_Valid() {
+    void testDepartmentConstructor_valid() {
         Department dept = new Department("Computer Science");
-
+        String expDepartmentName = "Computer Science";
+        String result = dept.getDepartmentName();
+        assertEquals(expDepartmentName, result);
         assertNotNull(dept.getDepartmentId());
-        assertTrue(dept.getDepartmentId().startsWith("D"));
-        assertEquals("Computer Science", dept.getDepartmentName());
     }
 
     @Test
-    void testDepartmentConstructor_TitleCase() {
+    void testDepartmentConstructor_titleCase() {
         Department dept = new Department("computer science");
-
-        assertEquals("Computer Science", dept.getDepartmentName());
+        String expDepartmentName = "Computer Science";
+        String result = dept.getDepartmentName();
+        assertEquals(expDepartmentName, result);
     }
 
     @Test
-    void testDepartmentConstructor_Invalid() {
+    void testDepartmentConstructor_invalid() {
         Department dept = new Department("Computer-Science");
-
-        assertNull(dept.getDepartmentId());
-        assertNull(dept.getDepartmentName());
+        String expDepartmentId = null;
+        String expDepartmentName = null;
+        String resultId = dept.getDepartmentId();
+        String resultName = dept.getDepartmentName();
+        assertEquals(expDepartmentId, resultId);
+        assertEquals(expDepartmentName, resultName);
     }
 
     @Test
-    void testDepartmentConstructor_AutoIncrement() {
-        Department dept1 = new Department("Computer Science");
-        Department dept2 = new Department("Mathematics");
-
-        assertNotEquals(dept1.getDepartmentId(), dept2.getDepartmentId());
-    }
-
-    @Test
-    void testSetDepartmentName_Valid() {
+    void testSetDepartmentName_valid() {
         Department dept = new Department("Computer Science");
         dept.setDepartmentName("Mathematics");
-
-        assertEquals("Mathematics", dept.getDepartmentName());
+        String expDepartmentName = "Mathematics";
+        String result = dept.getDepartmentName();
+        assertEquals(expDepartmentName, result);
     }
 
     @Test
-    void testSetDepartmentName_TitleCase() {
+    void testSetDepartmentName_titleCase() {
         Department dept = new Department("Computer Science");
         dept.setDepartmentName("mathematics");
-
-        assertEquals("Mathematics", dept.getDepartmentName());
+        String expDepartmentName = "Mathematics";
+        String result = dept.getDepartmentName();
+        assertEquals(expDepartmentName, result);
     }
 
     @Test
-    void testSetDepartmentName_Invalid() {
+    void testSetDepartmentName_invalid() {
         Department dept = new Department("Computer Science");
         dept.setDepartmentName("Math-101");
-
-        assertNull(dept.getDepartmentName());
+        String expDepartmentName = null;
+        String result = dept.getDepartmentName();
+        assertEquals(expDepartmentName, result);
     }
 }

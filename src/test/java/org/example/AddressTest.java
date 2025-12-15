@@ -1,6 +1,5 @@
 package org.example;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,74 +7,106 @@ import static org.junit.jupiter.api.Assertions.*;
 class AddressTest {
 
     @Test
-    void testIsPostalCodeValid_Valid() {
-        assertTrue(Address.isPostalCodeValid("A1B2C3"));
+    void testIsPostalCodeValid_A1B2C3() {
+        String input = "A1B2C3";
+        boolean expResult = true;
+        boolean result = Address.isPostalCodeValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsPostalCodeValid_Valid2() {
-        assertTrue(Address.isPostalCodeValid("K1A0B1"));
+    void testIsPostalCodeValid_K1A0B1() {
+        String input = "K1A0B1";
+        boolean expResult = true;
+        boolean result = Address.isPostalCodeValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsPostalCodeValid_TooShort() {
-        assertFalse(Address.isPostalCodeValid("A1B2C"));
+    void testIsPostalCodeValid_tooShort() {
+        String input = "A1B2C";
+        boolean expResult = false;
+        boolean result = Address.isPostalCodeValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsPostalCodeValid_TooLong() {
-        assertFalse(Address.isPostalCodeValid("A1B2C3D"));
+    void testIsPostalCodeValid_tooLong() {
+        String input = "A1B2C3D";
+        boolean expResult = false;
+        boolean result = Address.isPostalCodeValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsPostalCodeValid_WrongFormat1() {
-        assertFalse(Address.isPostalCodeValid("1A2B3C"));
+    void testIsPostalCodeValid_wrongFormat1() {
+        String input = "1A2B3C";
+        boolean expResult = false;
+        boolean result = Address.isPostalCodeValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsPostalCodeValid_WrongFormat2() {
-        assertFalse(Address.isPostalCodeValid("ABCDEF"));
+    void testIsPostalCodeValid_wrongFormat2() {
+        String input = "ABCDEF";
+        boolean expResult = false;
+        boolean result = Address.isPostalCodeValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsPostalCodeValid_Null() {
-        assertFalse(Address.isPostalCodeValid(null));
+    void testIsPostalCodeValid_null() {
+        String input = null;
+        boolean expResult = false;
+        boolean result = Address.isPostalCodeValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testIsPostalCodeValid_Empty() {
-        assertFalse(Address.isPostalCodeValid(""));
+    void testIsPostalCodeValid_emptyString() {
+        String input = "";
+        boolean expResult = false;
+        boolean result = Address.isPostalCodeValid(input);
+        assertEquals(expResult, result);
     }
 
     @Test
-    void testAddressConstructor_Valid() {
-        Address address = new Address(123, "Main Street", "Toronto",
-                Address.Province.ON, "M5H2N2");
+    void testAddressConstructor_valid() {
+        Address address = new Address(123, "Main Street", "Toronto", Address.Province.ON, "M5H2N2");
+        int expStreetNo = 123;
+        String expStreet = "Main Street";
+        String expCity = "Toronto";
+        Address.Province expProvince = Address.Province.ON;
+        String expPostalCode = "M5H2N2";
 
-        assertEquals(123, address.getStreetNo());
-        assertEquals("Main Street", address.getStreet());
-        assertEquals("Toronto", address.getCity());
-        assertEquals(Address.Province.ON, address.getProvince());
-        assertEquals("M5H2N2", address.getPostalCode());
+        assertEquals(expStreetNo, address.getStreetNo());
+        assertEquals(expStreet, address.getStreet());
+        assertEquals(expCity, address.getCity());
+        assertEquals(expProvince, address.getProvince());
+        assertEquals(expPostalCode, address.getPostalCode());
     }
 
     @Test
-    void testAddressConstructor_UppercaseConversion() {
-        Address address = new Address(123, "Main Street", "Toronto",
-                Address.Province.ON, "m5h2n2");
-
-        assertEquals("M5H2N2", address.getPostalCode());
+    void testAddressConstructor_uppercase() {
+        Address address = new Address(123, "Main Street", "Toronto", Address.Province.ON, "m5h2n2");
+        String expPostalCode = "M5H2N2";
+        String result = address.getPostalCode();
+        assertEquals(expPostalCode, result);
     }
 
     @Test
-    void testAddressConstructor_Invalid() {
-        Address address = new Address(123, "Main Street", "Toronto",
-                Address.Province.ON, "INVALID");
+    void testAddressConstructor_invalid() {
+        Address address = new Address(123, "Main Street", "Toronto", Address.Province.ON, "INVALID");
+        int expStreetNo = 0;
+        String expStreet = null;
+        String expCity = null;
+        Address.Province expProvince = null;
+        String expPostalCode = null;
 
-        assertEquals(0, address.getStreetNo());
-        assertNull(address.getStreet());
-        assertNull(address.getCity());
-        assertNull(address.getProvince());
-        assertNull(address.getPostalCode());
+        assertEquals(expStreetNo, address.getStreetNo());
+        assertEquals(expStreet, address.getStreet());
+        assertEquals(expCity, address.getCity());
+        assertEquals(expProvince, address.getProvince());
+        assertEquals(expPostalCode, address.getPostalCode());
     }
 }

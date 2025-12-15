@@ -56,6 +56,8 @@ public class Student {
             assignment.getScores().add(null);
         }
 
+        course.getFinalScores().add(null);
+
         return true;
     }
 
@@ -73,11 +75,17 @@ public class Student {
         registeredCourses.remove(course);
         course.getRegisteredStudents().remove(this);
 
-        for (Assignment assignment : course.getAssignments()) {
-            assignment.getScores().remove(index);
-        }
+        if (index >= 0) {
+            for (Assignment assignment : course.getAssignments()) {
+                if (index < assignment.getScores().size()) {
+                    assignment.getScores().remove(index);
+                }
+            }
 
-        course.getFinalScores().remove(index);
+            if (index < course.getFinalScores().size()) {
+                course.getFinalScores().remove(index);
+            }
+        }
 
         return true;
     }
